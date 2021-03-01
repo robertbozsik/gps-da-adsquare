@@ -104,7 +104,7 @@ path = "/Users/robertbozsik/techtest/adsquare/assignment_data/affinities"
 file_names = os.listdir(path)
 file_names = sorted(file_names)
 # add .csv after the file names (it should be run only once)
-if ".csv" not in fine_names[0]:
+if ".csv" not in file_names[0]:
     for index, file_name in enumerate(file_names):
         os.rename(os.path.join(path, file_name), os.path.join(
             path, "".join([file_name, ".csv"])))
