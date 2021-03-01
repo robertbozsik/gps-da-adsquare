@@ -103,9 +103,11 @@ users = users.sort_values(by=["device_id"]).reset_index(drop=True)
 path = "/Users/robertbozsik/techtest/adsquare/assignment_data/affinities"
 file_names = os.listdir(path)
 file_names = sorted(file_names)
-# add .csv after the file names (it should be run only once!) # comment it out
-# for index, file_name in enumerate(file_names):
-#     os.rename(os.path.join(path, file_name), os.path.join(path, "".join([file_name, ".csv"])))
+# add .csv after the file names (it should be run only once)
+if ".csv" not in fine_names[0]:
+    for index, file_name in enumerate(file_names):
+        os.rename(os.path.join(path, file_name), os.path.join(
+            path, "".join([file_name, ".csv"])))
 # create a dictionary "user_affinities"
 # the keys should be the names of the affinities
 # the values should be lists of the affinity csvs
