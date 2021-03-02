@@ -17,11 +17,11 @@
 
 ### Dashboard of unique store visits
 
-To see the big picture here is a dasboard:
+See the big picture on this [dasboard](https://public.tableau.com/profile/robert.bozsik#!/vizhome/unique_visits/Dashboardofuniquevisists?publish=yes)
 
 ![dashboard_of_unique_visits_tableau](/images/dashboard_of_unique_visits_tableau.png)
 
-### Trend of unique visits for each store made by Seaborn:
+### Trend of unique visits for each store:
 
 Visualizing the unique visits for each store id caused a huge mess on the plot as there are 186 unique store ids, for this reason, I decided to plot the trend for each store name.
 
@@ -32,7 +32,7 @@ There is a significant drop in the number of unique visits on the 17th of Januar
 
 # Visualization of GPS data and stores
 
-### Map of unique visits made by Folium:
+### Map of unique visits:
 
 ![map_of_unique_visits_folium](/images/map_of_unique_visits_folium.png)
 
