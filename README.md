@@ -9,9 +9,9 @@
 6. In case there is a problem by installing the module 'fiona', install 'gdal' with brew (brew install gdal)
 7. Run the [analysis.py](analysis.py) file (python3 analysis.py). You should see something like this in your iTerm:
    ![analysis](/images/analysis.png)
-8. Run the [plot.py](plot.py) file and the following parameters to your command:
+8. Run the [plot.py](plot.py) file by adding the following parameters to your command:
    - plot_all_stores (e.g. python3 plot.py plot_all_stores)
-   - plot_a_store + name-of-the-store (e.g. python3 plot.py plot_a_store Aldi)
+   - plot_a_store + storename (e.g. python3 plot.py plot_a_store Aldi)
 9. Run the [map.ipynb](/notebooks/map.ipynb) notebook in a Jupyter Notebook (python3 -m jupyter notebook)
 10. Check the output files in the [out_data](/out_data) folder
 
