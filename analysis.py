@@ -21,6 +21,7 @@ import pickle
 import time
 import re
 import os
+from pathlib import Path
 import glob
 import numpy as np
 import pandas as pd
@@ -98,9 +99,10 @@ users = pd.DataFrame(data)
 users = users.sort_values(by=["device_id"]).reset_index(drop=True)
 
 # user affinities
-# list the files in the user_affinities folder
-# create your own path
-path = "/Users/robertbozsik/techtest/adsquare/assignment_data/affinities"
+# list the files in the "affinities" folder
+path = os.getcwd()
+# go one level upwards compared to the current path
+path = f"{str(Path(path).parents[0])}/assignment_data/affinities"
 file_names = os.listdir(path)
 file_names = sorted(file_names)
 # add .csv after the file names (it should be run only once)
