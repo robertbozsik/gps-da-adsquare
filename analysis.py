@@ -7,6 +7,7 @@
 # pip3 install pyproj # geopandas dependency
 # pip3 install pygeos # geopandas dependency
 # pip3 install geopandas
+# pip3 install jupyter
 # pip3 install folium
 # pip3 install matplotlib
 # pip3 install seaborn
