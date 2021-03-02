@@ -17,7 +17,7 @@
 
 ### Dashboard of unique store visits
 
-See the big picture on this [dasboard](https://public.tableau.com/profile/robert.bozsik#!/vizhome/unique_visits/Dashboardofuniquevisists?publish=yes)
+See the big picture on this [dasboard](https://public.tableau.com/profile/robert.bozsik#!/vizhome/unique_visits/Dashboardofuniquevisists?publish=yes){:target="\_blank"}.
 
 ![dashboard_of_unique_visits_tableau](/images/dashboard_of_unique_visits_tableau.png)
 
