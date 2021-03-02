@@ -28,7 +28,7 @@ Visualizing the unique visits for each store id caused a huge mess on the plot a
 ![trend_of_unique_visits_tableau](/images/trend_of_unique_visits_tableau.png)
 
 Based on the sample data (smaller dataset): \
-There is a significant drop in the number of unique visits on the 17th of January by Kaufland, Lexus, Burger King, Rewe, and Aldi. Almost all the shops must have been closed that day, as it was Sunday. The Chancellor announced extended lockdown, what was already expected a couple of days before. It could explain the rising trend before the 17th, the drop on the day, and the increase right after.
+There is a significant drop in the number of unique visits on the 17th of January by Kaufland, Rewe, and Aldi. All grocery sotres must have been closed that day, as it was Sunday. There were, however, no such huge drops by Kaufland one and two weaks before.
 
 # Visualization of GPS data and stores
 

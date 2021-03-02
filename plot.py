@@ -17,6 +17,7 @@ sns_plot = sns.lineplot(data=final_df,
                         x="date",
                         y="unique_visits",
                         hue="store_name",
+                        estimator="sum",  # the default is "mean"
                         ci=None)  # disable confidence intervals
 plt.title("Trend of unique visits for each store")
 # save the plot
