@@ -38,15 +38,13 @@ print("Analysis started...")
 stores = pd.read_csv("../assignment_data/stores.csv")
 # transform strings to polygons in column "wkt"
 stores["wkt"] = stores["wkt"].apply(lambda x: shapely.wkt.loads(x))
-# rename "wkt" to "geometry"
-# must be geometry for the geopandas join
+# rename "wkt" to "geometry" for the geopandas join
 stores = stores.rename(columns={"wkt": "geometry"})
 # transform stores into a GeoDataFrame
 stores_gdf = gpd.GeoDataFrame(stores)
 # save stores_gdf as pickle
-with open("./out_data/stores_gdf.pickle", "wb") as pickle_file:
-    pickle.dump(stores_gdf, pickle_file, protocol=pickle.HIGHEST_PROTOCOL)
-print("stores_gdf saved")
+stores_gdf.to_pickle("./out_data/stores_gdf.pkl")
+print("stores_gdf saved as pickle.")
 
 # gps_signals
 # read all gps_signal csv batches
@@ -54,11 +52,11 @@ gps_signals = pd.DataFrame()
 start = time.time()
 print("Reading all gps_signal csv batches...")
 for file_name in glob.glob("../assignment_data/sample_data/*.csv"):
-    batch = pd.read_csv(file_name)  # , low_memory=False
+    batch = pd.read_csv(file_name)
     gps_signals = pd.concat([gps_signals, batch], ignore_index=True)
 end = time.time()
 dt = end - start
-print(f"Reading all gps_signal csv batches took {round(dt/60, 2)} minute(s).")
+print(f"The above took {round(dt/60, 2)} minute(s).")
 # sort by "utc_timestamp" ascending
 gps_signals = gps_signals.sort_values(
     by=["utc_timestamp"]).reset_index(drop=True)
@@ -74,29 +72,23 @@ gps_signals_gdf = gpd.GeoDataFrame(gps_signals,
                                    geometry=gpd.points_from_xy(gps_signals["lon"], gps_signals["lat"]))
 end = time.time()
 dt = end - start
-print(
-    f"Creating POINT from lat lon in gps_signals and transforming the df into a gdf took {round(dt/60, 2)} minute(s).")
+print(f"The above took {round(dt/60, 2)} minute(s).")
 
-# join (merge) gps_signals_gdf and stores_gdf
-# join gps_signals_gdf and stores_gdf
+# spatial join gps_signals_gdf and stores_gdf
 start = time.time()
 print("Joining gps_signals_gdf and stores_gdf...")
-gps_sig_and_stores = sjoin(gps_signals_gdf, stores_gdf, how="left")
+gps_sig_and_stores = sjoin(gps_signals_gdf, stores_gdf, how="inner")
+# reset index after the inner spatial join
+gps_sig_and_stores = gps_sig_and_stores.reset_index(drop=True)
 end = time.time()
 dt = end - start
-print(
-    f"Joining gps_signals_gdf and stores_gdf took {round(dt/60, 2)} minute(s).")
+print(f"The above took {round(dt/60, 2)} minute(s).")
 
-# users and user affinities
 # users
-# create a list from the unique device ids
-unique_device_ids = list(gps_signals["device_id"].unique())
-# create a dataframe "users"
-data = {
-    "device_id": unique_device_ids
-}
-users = pd.DataFrame(data)
-# sort device_ids acscending
+# create unique users by dropping each duplicated device_id
+users = gps_signals[["device_id", "lat", "lon"]
+                    ].drop_duplicates(subset=["device_id"])
+# sort by device_id ascending
 users = users.sort_values(by=["device_id"]).reset_index(drop=True)
 
 # user affinities
@@ -111,9 +103,7 @@ if ".csv" not in file_names[0]:
     for index, file_name in enumerate(file_names):
         os.rename(os.path.join(path, file_name), os.path.join(
             path, "".join([file_name, ".csv"])))
-# create a dictionary "user_affinities"
-# the keys should be the names of the affinities
-# the values should be lists of the affinity csvs
+# create a dictionary "user_affinities", key: value -> affinity-name: [lists-of-the-affinity-csv]
 user_affinities = {}
 for file_name in file_names:
     name = file_name.split(".")[0]
@@ -128,12 +118,19 @@ users.to_csv("./out_data/users.csv", index=False)
 # merge gps_sig_and_stores and users (affinities)
 start = time.time()
 print("Merging gps_sig_and_stores and users (affinities)...")
+# help the speed of the merge with deleting lat and lon from users
+users_to_merge = users.drop(["lat", "lon"], axis=1)
 gpssig_stores_useraff = gps_sig_and_stores.merge(
-    users, how="inner", on="device_id")
+    users_to_merge, how="inner", on="device_id")
 end = time.time()
 dt = end - start
-print(
-    f"Merging gps_sig_and_stores and users (affinities) took {round(dt/60, 2)} minute(s).")
+print(f"The above took {round(dt/60, 2)} minute(s).")
+
+# create users_in_stores for visualization on a map
+users_in_stores = gpssig_stores_useraff[[
+    "device_id", "lat", "lon", "date", "store_id", "store_name"]]
+users_in_stores.to_csv("./out_data/users_in_stores.csv", index=False)
+print("users_in_stores saved as csv.")
 
 
 # 1.b Group the resolved visits by date (yyyy-mm-dd), store_name, and store_id.
@@ -141,8 +138,7 @@ print(
 # 1.c.i A total number of GPS signals per place_id/date.
 # 1.c.ii A total number of unique visitors (i.e. device ids).
 
-# create total number of GPS signals per place_id/date
-# and create total number of unique visitors
+# create total number of GPS signals per place_id/date and total number of unique visitors
 gsu_total_and_unique = (gpssig_stores_useraff
                         .groupby(by=["date", "store_name", "store_id"])
                         .agg({"lat": "count", "device_id": "nunique"})
@@ -151,30 +147,28 @@ gsu_total_and_unique = (gpssig_stores_useraff
 
 # 1.c.iii A total number of unique visitors belonging to each affinity group.
 
-# drop duplicated date, store_name, store_id and device_id
-# in order to get unique visitors belonging to each affinity group
-# and group by data, store_name and store_id
+# total number of unique visitors belonging to each affinity group
 start = time.time()
 print("Creating total number of unique visitors belonging to each affinity group...")
 gsu_unique_aff = (gpssig_stores_useraff
-                  .drop(["geometry", "index_right"], axis=1)
+                  .drop(["lat", "lon", "geometry", "index_right"], axis=1)
                   .drop_duplicates(subset=["date", "store_name", "store_id", "device_id"])
                   .groupby(by=["date", "store_name", "store_id"])
-                  .agg(sum)
-                  .reset_index())
-end = time.time()
-dt = end - start
-print(
-    f"Create total number of unique visitors belonging to each affinity group took {round(dt/60, 2)} minutes.")
+                  .agg(sum)  # would sum lat, lon and device_id as well!!!
+                  .reset_index()
+                  .drop(["device_id"], axis=1))
 # delete unnecessary columns
 gsu_unique_aff = gsu_unique_aff.drop(
     ["date", "store_name", "store_id"], axis=1)
+end = time.time()
+dt = end - start
+print(f"The above took {round(dt/60, 2)} minute(s).")
 
 # concat the gsu_total_and_unique and gsu_unique_aff
 final_df = pd.concat([gsu_total_and_unique, gsu_unique_aff], axis=1)
 # save final df as csv
 final_df.to_csv("./out_data/analysis.csv", index=False)
-print("final_df saved as csv")
+print("final_df saved as csv.")
 
 end_analysis = time.time()
 dt_analysis = end_analysis - start_analysis
