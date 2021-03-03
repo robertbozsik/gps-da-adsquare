@@ -19,11 +19,11 @@
 
 ### Dashboard of unique store visits
 
-See the big picture on this <a href="https://public.tableau.com/profile/robert.bozsik#!/vizhome/unique_visits/Dashboardofuniquevisists?publish=yes" target="_blank">dashboard</a>.
+See the big picture on this <a href="https://public.tableau.com/profile/robert.bozsik#!/vizhome/visits_dashboard_tableau/Dashboard1?publish=yes" target="_blank">dashboard</a>.
 
 ![dashboard_of_unique_visits_tableau](/images/dashboard_of_unique_visits_tableau.png)
 
-### Trend of unique visits for each store:
+### Trend of unique visits by store:
 
 Visualizing the unique visits for each store id caused a huge mess on the plot as there are 186 unique store ids, for this reason, I decided to plot the trend for each store name.
 
@@ -32,12 +32,20 @@ Visualizing the unique visits for each store id caused a huge mess on the plot a
 Based on the sample data (smaller dataset): \
 There is a significant drop in the number of unique visits on the 17th of January by Kaufland, Rewe, and Aldi. All grocery sotres must have been closed that day, as it was Sunday. There were, however, no such huge drops by Kaufland one and two weaks before.
 
+### Unique visits of a store:
+
+![unique_visits_of_a_store_tableau](/images/unique_visits_of_a_store_tableau.png)
+
 # Visualization of GPS data and stores
 
-### Map of unique visits:
+### Map of a store:
 
-![map_of_unique_visits_folium](/images/map_of_unique_visits_folium.png)
+![map_of_a_store](/images/map_of_a_store.png)
 
-### Map of stores
+### Map of a user in store:
 
-![map_of_stores_folium](/images/map_of_stores_folium.png)
+![map_of_a_user_in_store](/images/map_of_a_user_in_store.png)
+
+### Map of stores and users in store:
+
+![map_of_stores_and_users_in_store](/images/map_of_stores_and_users_in_store.png)
