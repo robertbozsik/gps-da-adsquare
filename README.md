@@ -41,9 +41,3 @@ There is a significant drop in the number of unique visits on the 17th of Januar
 ### Map of stores
 
 ![map_of_stores_folium](/images/map_of_stores_folium.png)
-
-### Fake latitudes and longitudes in the data
-
-There are some "fake" latitudes and longitudes in the data. The numbers should be in decimal degrees format and range from -90 to 90 for latitude and -180 to 180 for longitude. The data should be cleaned in advance.
-
-![map_anomaly_tableau](/images/map_anomaly_tableau.png)
