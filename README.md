@@ -21,7 +21,7 @@
 
 See the big picture on this <a href="https://public.tableau.com/profile/robert.bozsik#!/vizhome/visits_dashboard_tableau/Dashboard1?publish=yes" target="_blank">dashboard</a>.
 
-![dashboard_of_unique_visits_tableau](/images/dashboard_of_unique_visits_tableau.png)
+![visits_dashboard_tableau](/images/visits_dashboard_tableau.png)
 
 ### Trend of unique visits by store:
 
