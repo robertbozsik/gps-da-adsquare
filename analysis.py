@@ -1,4 +1,5 @@
 # installs
+# pip3 install --upgrade pip
 # pip3 install numpy
 # pip3 install pandas
 # pip3 install shapely
@@ -56,7 +57,7 @@ for file_name in glob.glob("../assignment_data/sample_data/*.csv"):
     gps_signals = pd.concat([gps_signals, batch], ignore_index=True)
 end = time.time()
 dt = end - start
-print(f"The above took {round(dt/60, 2)} minute(s).")
+print(f"The above task took {round(dt/60, 2)} minute(s).")
 # sort by "utc_timestamp" ascending
 gps_signals = gps_signals.sort_values(
     by=["utc_timestamp"]).reset_index(drop=True)
@@ -72,7 +73,7 @@ gps_signals_gdf = gpd.GeoDataFrame(gps_signals,
                                    geometry=gpd.points_from_xy(gps_signals["lon"], gps_signals["lat"]))
 end = time.time()
 dt = end - start
-print(f"The above took {round(dt/60, 2)} minute(s).")
+print(f"The above task took {round(dt/60, 2)} minute(s).")
 
 # spatial join gps_signals_gdf and stores_gdf
 start = time.time()
@@ -82,12 +83,11 @@ gps_sig_and_stores = sjoin(gps_signals_gdf, stores_gdf, how="inner")
 gps_sig_and_stores = gps_sig_and_stores.reset_index(drop=True)
 end = time.time()
 dt = end - start
-print(f"The above took {round(dt/60, 2)} minute(s).")
+print(f"The above task took {round(dt/60, 2)} minute(s).")
 
 # users
 # create unique users by dropping each duplicated device_id
-users = gps_signals[["device_id", "lat", "lon"]
-                    ].drop_duplicates(subset=["device_id"])
+users = gps_signals[["device_id"]].drop_duplicates(subset=["device_id"])
 # sort by device_id ascending
 users = users.sort_values(by=["device_id"]).reset_index(drop=True)
 
@@ -118,13 +118,11 @@ users.to_csv("./out_data/users.csv", index=False)
 # merge gps_sig_and_stores and users (affinities)
 start = time.time()
 print("Merging gps_sig_and_stores and users (affinities)...")
-# help the speed of the merge with deleting lat and lon from users
-users_to_merge = users.drop(["lat", "lon"], axis=1)
 gpssig_stores_useraff = gps_sig_and_stores.merge(
-    users_to_merge, how="inner", on="device_id")
+    users, how="inner", on="device_id")
 end = time.time()
 dt = end - start
-print(f"The above took {round(dt/60, 2)} minute(s).")
+print(f"The above task took {round(dt/60, 2)} minute(s).")
 
 # create users_in_stores for visualization on a map
 users_in_stores = gpssig_stores_useraff[[
@@ -162,7 +160,7 @@ gsu_unique_aff = gsu_unique_aff.drop(
     ["date", "store_name", "store_id"], axis=1)
 end = time.time()
 dt = end - start
-print(f"The above took {round(dt/60, 2)} minute(s).")
+print(f"The above task took {round(dt/60, 2)} minute(s).")
 
 # concat the gsu_total_and_unique and gsu_unique_aff
 final_df = pd.concat([gsu_total_and_unique, gsu_unique_aff], axis=1)

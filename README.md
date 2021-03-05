@@ -3,8 +3,8 @@
 1. Clone this repository
 2. Out of the cloned repository create the following folder structore of the received input files:
    ![folder_structure](/images/folder_structure.png)
-3. Create a virtual environment (python3 -m venv <name-of-your-environment>)
-4. Start the virtual environment (source <name-of-yout-environment/bin/activate>)
+3. Create a virtual environment (python3 -m venv name-of-your-environment)
+4. Start the virtual environment (source name-of-your-environment/bin/activate)
 5. Install all the necessary modules (python -m pip install -r requirements)
 6. In case there is a problem by installing the module 'fiona', install 'gdal' with brew (brew install gdal)
 7. Run the [analysis.py](analysis.py) file (python3 analysis.py). You should see something like this in your iTerm:
