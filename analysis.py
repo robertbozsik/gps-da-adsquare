@@ -1,17 +1,19 @@
 # installs
-# pip3 install --upgrade pip
-# pip3 install numpy
-# pip3 install pandas
-# pip3 install shapely
+# python3 -m pip install --upgrade pip
+# python3 -m pip install numpy
+# python3 -m pip install pandas
+# python3 -m pip install shapely
 # brew install gdal # fiona dependency
-# pip3 install fiona # geopandas dependency
-# pip3 install pyproj # geopandas dependency
-# pip3 install pygeos # geopandas dependency
-# pip3 install geopandas
-# pip3 install jupyter
-# pip3 install folium
-# pip3 install matplotlib
-# pip3 install seaborn
+# python3 -m pip install fiona # geopandas dependency
+# python3 -m pip install pyproj # geopandas dependency
+# python3 -m pip install pygeos # geopandas dependency
+# python3 -m pip install geopandas
+# python3 -m pip install jupyter
+# python3 -m pip install folium
+# python3 -m pip install matplotlib
+# python3 -m pip install seaborn
+# python3 -m pip install findspark
+# python3 -m pip install apache-sedona
 
 # imports
 from functions import list_from_affinities  # user-defined function
