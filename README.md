@@ -7,13 +7,13 @@
 4. Start the virtual environment (source name-of-your-environment/bin/activate)
 5. Install all the necessary modules (python -m pip install -r requirements)
 6. In case there is a problem by installing the module 'fiona', install 'gdal' with brew (brew install gdal)
-7. Run the [analysis.py](analysis.py) file (python3 analysis.py). You should see something like this in your iTerm:
-   ![analysis](/images/analysis.png)
-8. Run the [plot.py](plot.py) file by adding the following parameters to your command:
-   - plot_all_stores (e.g. python3 plot.py plot_all_stores)
-   - plot_a_store + storename (e.g. python3 plot.py plot_a_store Aldi)
-9. Run the [map.ipynb](/notebooks/map.ipynb) notebook in a Jupyter Notebook (python3 -m jupyter notebook)
-10. Check the output files in the [out_data](/out_data) folder
+7. Run the [analysis_full.py](analysis_full.py) file (python3 analysis_full.py). You should see something like this in your iTerm:
+   ![analysis_full](/images/analysis_full.png)
+8. Run the [plot_full.py](plot_full.py) file by adding the following parameters to your command:
+   - plot_all_stores (e.g. python3 plot_full.py plot_all_stores)
+   - plot_a_store + storename (e.g. python3 plot_full.py plot_a_store Aldi)
+9. Run the [map_full.ipynb](/notebooks/map_full.ipynb) notebook in a Jupyter Notebook (python3 -m jupyter notebook)
+10. Check the output files in the [out_data_full](/out_data_full) folder
 
 # Visualization of unique store visits
 
@@ -29,8 +29,7 @@ Visualizing the unique visits for each store id caused a huge mess on the plot a
 
 ![trend_of_unique_visits_tableau](/images/trend_of_unique_visits_tableau.png)
 
-Based on the sample data (smaller dataset): \
-There is a significant drop in the number of unique visits on the 17th of January by Kaufland, Rewe, and Aldi. All grocery sotres must have been closed that day, as it was Sunday. There were, however, no such huge drops by Kaufland one and two weaks before.
+Most of the sores are closed on Sundays. If this is a representative sample of customers, I will go shopping on Tuesdays or Wednesdays from now on.
 
 ### Unique visits of a store:
 
