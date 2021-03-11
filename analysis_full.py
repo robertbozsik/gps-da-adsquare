@@ -38,11 +38,11 @@ print("stores_gdf saved as pickle.")
 signals_gdf_list = []
 start = time.time()
 print("Reading and transforming gps signal csv batches into GeoDataFrames...")
-path_sample = "../assignment_data/full_data/"
-files_list = glob.glob(path_sample + "*.csv")
+path = "../assignment_data/full_data/"
+files_list = glob.glob(path + "*.csv")
 for index in tqdm(range(len(files_list))):
     # open a partition/batch of a gps signal as a Pandas DataFrame
-    signal = pd.read_csv(path_sample + f"part_{index + 1}.csv")
+    signal = pd.read_csv(path + f"part_{index + 1}.csv")
     # sort by "utc_timestamp" ascending
     signal = signal.sort_values(by=["utc_timestamp"]).reset_index(drop=True)
     # transform utc_timestamp into yyyy-mm-dd (Europe/Berlin timezone)
@@ -82,7 +82,7 @@ users = signals_stores_gdf[["device_id"]].drop_duplicates(
 users = users.sort_values(by=["device_id"]).reset_index(drop=True)
 
 # user affinities
-# list the files in the user_affinities folder
+# list the files in the user_affinities folder (each file contains device ids)
 path = os.getcwd()
 # go one level upwards compared to the current path
 path = f"{str(Path(path).parents[0])}/assignment_data/affinities"

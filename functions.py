@@ -40,6 +40,7 @@ def plot_all_sores(final_df):
                             estimator="sum",  # the default is "mean"
                             ci=None)  # disable confidence intervals
     plt.title("Trend of unique visits for each store")
+    plt.legend(loc="upper right")  # legend positioning
     # save the plot
     sns_plot.figure.savefig("./out_data_sample/trend_of_unique_visits.png")
     # display the plot

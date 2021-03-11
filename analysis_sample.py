@@ -77,7 +77,7 @@ users = gps_signals[["device_id"]].drop_duplicates(subset=["device_id"])
 users = users.sort_values(by=["device_id"]).reset_index(drop=True)
 
 # user affinities
-# list the files in the "affinities" folder
+# list the files in the "affinities" folder (each file contains device ids)
 path = os.getcwd()
 # go one level upwards compared to the current path
 path = f"{str(Path(path).parents[0])}/assignment_data/affinities"
